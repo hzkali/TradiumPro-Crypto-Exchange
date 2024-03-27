@@ -1,0 +1,23 @@
+mutation MarketCurrencyConvert ($quote_id: String!) {
+  data: m_f_convert_marketCurrencyConvert (quote_id: $quote_id) {
+    code
+    message
+    success
+  }
+}
+
+mutation LimitCurrencyConvert ($data: LimitCurrencyConvertDto!) {
+  data: m_f_convert_limitCurrencyConvert (data: $data) {
+    code
+    message
+    success
+  }
+}
+
+mutation CancelLimitCurrencyConvert ($convert_uid: String!) {
+  data: m_f_convert_cancelLimitCurrencyConvert (convert_uid: $convert_uid) {
+    code
+    message
+    success
+  }
+}

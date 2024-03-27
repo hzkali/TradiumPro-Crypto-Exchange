@@ -1,0 +1,20 @@
+overwrite: true
+schema: ${NEXT_PUBLIC_API_URL}
+documents: "src/**/*.graphql"
+generates:
+  src/graphql/generated.ts:
+    plugins:
+      #      - add:
+      #          content: "import APIConfig from '../config/api';"
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      addInfiniteQuery: true
+      fetcher:
+        #        endpoint: 'APIConfig.endpoint'
+        #        fetchParams: 'APIConfig.fetchParams'
+        func: "../lib/fetcher#graphqlFetcher"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

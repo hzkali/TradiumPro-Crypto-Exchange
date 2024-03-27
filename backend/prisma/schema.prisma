@@ -1,0 +1,579 @@
+generator client {
+  provider = "prisma-client-js"
+  // previewFeatures = ["interactiveTransactions"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Setting {
+  id            Int     @id @default(autoincrement())
+  option_group  String? @db.VarChar(255)
+  option_key    String  @unique @db.VarChar(255)
+  option_value  String? @db.Text
+  value_type    Int     @default(1) @db.SmallInt
+  client_access Int     @default(1) @db.SmallInt
+
+  @@map("settings")
+}
+
+model Staff {
+  id               Int       @id @default(autoincrement())
+  username         String    @unique @db.VarChar(255)
+  name             String    @db.VarChar(255)
+  avatar           String?   @db.VarChar(255)
+  description      String?
+  email            String    @unique @db.VarChar(255)
+  phone            String?   @unique @db.VarChar(255)
+  emailVerifiedAt  DateTime?
+  isEmailVerified  Boolean   @default(false)
+  resetCode        String?   @db.VarChar(255)
+  google2fa_secret String?   @db.VarChar(255)
+  password         String    @db.VarChar(255)
+  roleId           Int?
+  status           Int?      @default(1) @db.SmallInt
+  created_at       DateTime  @default(now())
+  updated_at       DateTime? @updatedAt
+
+  role Role? @relation(fields: [roleId], references: [id])
+
+  approved_withdrawals Withdrawal[]
+
+  chats                  P2POrderChat[]
+  assigned_p2p_orders    P2POrder[]          @relation("assigned")
+  assigned_by_p2p_orders P2POrder[]          @relation("assigned_by")
+  notifications          StaffNotification[]
+
+  @@map("staffs")
+}
+
+model Role {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(255)
+  permissions String?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime? @updatedAt
+
+  Staff Staff[]
+
+  @@map("roles")
+}
+
+model User {
+  id         BigInt    @id @default(autoincrement())
+  usercode   String    @unique @db.VarChar(100)
+  fullname   String?   @db.VarChar(255)
+  nickname   String?   @db.VarChar(255)
+  email      String?   @unique()
+  password   String?   @db.VarChar(255)
+  phone      String?   @unique @db.VarChar(25)
+  avatar     String?   @db.VarChar(255)
+  type       Int       @default(1) @db.SmallInt
+  reg_type   Int       @default(1) @db.SmallInt
+  social_id  String?   @db.VarChar(255)
+  status     Int       @default(0) @db.SmallInt
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+  // createdAt                            DateTime? @map("created_at") @db.Timestamp(0)
+  // updatedAt                            DateTime? @updatedAt @map("updated_at") @db.Timestamp(0)
+
+  as_referral_parents              UserReferral[]                 @relation("parent_user")
+  as_referral_child                UserReferral?                  @relation("child_user")
+  user_verify_codes                UserVerifyCodes[]
+  user_new_credential_verify_codes UserNewCredentialVerifyCodes[]
+  user_infos                       UserInfo?
+  user_settings                    UserSettings?
+  user_devices                     UserDevices[]
+  user_notification_settings       UserNotificationSetting?
+  order_confirmation_settings      UserOrderConfirmationSetting?
+  user_security_questions          UserSecurityQuestion[]
+  security_reset_requests          UserSecurityResetRequest[]
+  activities                       UserActivities[]
+  wallet_keys                      WalletKey[]
+  wallets                          Wallet[]
+  permission                       UserPermission?
+  kyc_details                      UserKycDetail[]
+  kyc_address_details              UserKycAddressDetail[]
+  user_withdrawal_address          UserWithdrawalAddress[]
+  from_deposits                    Deposit[]                      @relation("deposit_from_user")
+  deposits                         Deposit[]                      @relation("deposit_to_user")
+  withdrawals                      Withdrawal[]                   @relation("withdrawal_from_user")
+  to_withdrawals                   Withdrawal[]                   @relation("withdrawal_to_user")
+  wallet_activities                WalletActivity[]
+  wallet_issues                    UserWalletIssue[]
+  buy_orders                       BuyOrder[]
+  sell_orders                      SellOrder[]
+  fav_currency_pairs               UserCurrencyPairFavList[]
+  balance_mismatches               UserBalanceMismatch[]
+  user_notifications               UserNotification[]
+  buyer_trades                     Trade[]                        @relation("buyer-trade")
+  seller_trades                    Trade[]                        @relation("seller-trade")
+  bonus_histories_as_actor_user    BonusDistributionHistory[]     @relation("bonus_histories_as_actor_user")
+  bonus_histories_as_receiver_user BonusDistributionHistory[]     @relation("bonus_histories_as_receiver_user")
+  notices_status                   UserNoticeStatus[]
+  convert_histories                CurrencyConvertHistory[]
+  pay_methods                      PayMethodDetails[]
+  cards                            CardDetails[]
+  online_payment_tx                OnlinePaymentTx[]
+  manual_payment_tx                ManualPaymentTx[]
+
+  creator_gift_cards UserGiftCard[] @relation("creator")
+  owner_gift_cards   UserGiftCard[] @relation("owner")
+
+  user_git_card_from_user_history UserGiftCardTransferHistory[] @relation("gift_card_from_user")
+  user_git_card_to_user_history   UserGiftCardTransferHistory[] @relation("gift_card_to_user")
+
+  user_deposit_defaul_wallet_type_histories UserDepositDefaultWalletTypeHistory[]
+  wallet_transfer_histories       UserWalletTransferHistory[]
+
+  p2p_advertisements P2PAdvertisement[]
+
+  p2p_buyer_orders  P2POrder[] @relation("p2p_order_buyer")
+  p2p_seller_orders P2POrder[] @relation("p2p_order_seller")
+
+  p2p_report_from_user P2POrderReport[] @relation("p2p_report_from_user")
+  p2p_report_to_user   P2POrderReport[] @relation("p2p_report_to_user")
+
+  p2p_follow_from_user P2PUserFollower[] @relation("p2p_follow_from_user")
+  p2p_follow_to_user   P2PUserFollower[] @relation("p2p_follow_to_user")
+
+  p2p_block_from_user P2PUserBlock[] @relation("p2p_block_from_user")
+  p2p_block_to_user   P2PUserBlock[] @relation("p2p_block_to_user")
+
+  p2p_feedback_from_user P2POrderFeedback[] @relation("p2p_feedback_from_user")
+  p2p_feedback_to_user   P2POrderFeedback[] @relation("p2p_feedback_to_user")
+
+  p2p_profile       UserP2PProfile?
+  p2p_order_dispute P2POrderDispute[]
+  p2p_order_chat    P2POrderChat[]
+
+  futures_currency_pair_fav_lists FuturesUserCurrencyPairFavList[]
+  futures_buy_order               FuturesBuyOrder[]
+  futures_sell_order              FuturesSellOrder[]
+
+  futures_buyer    FuturesTrade[]    @relation("futures_buyer")
+  futures_seller   FuturesTrade[]    @relation("futures_seller")
+  futures_position FuturesPosition[]
+
+  @@map("users")
+}
+
+model UserSettings {
+  id                            BigInt    @id @default(autoincrement())
+  user_id                       BigInt    @unique
+  email_verified                Int       @default(0) @db.SmallInt
+  last_email_verified_at        DateTime?
+  phone_verified                Int       @default(0) @db.SmallInt
+  last_phone_verified_at        DateTime?
+  login_twofa_enabled           Int       @default(0) @db.SmallInt
+  google2fa_secret              String?   @db.VarChar(255)
+  last_google2fa_updated_at     DateTime?
+  identity_verified             Int       @default(0) @db.SmallInt
+  last_identity_verified_at     DateTime?
+  identity_verify_reject_reason String?
+  address_verified              Int       @default(0) @db.SmallInt
+  last_address_verified_at      DateTime?
+  address_verify_reject_reason  String?
+  anti_phishing_code            String?   @db.VarChar(255)
+  last_anti_phishing_updated_at DateTime?
+  device_check_enabled          Int       @default(0) @db.SmallInt
+  last_login_time               DateTime?
+  email_marketing_enabled       Int       @default(0) @db.SmallInt
+  market_analytics_enabled      Int       @default(0) @db.SmallInt
+  advertising_enabled           Int       @default(0) @db.SmallInt
+  default_deposit_wallet_type   Int       @default(1) @db.SmallInt // default spot
+
+  futures_trade_enabled    Int       @default(0) @db.SmallInt
+  futures_trade_enabled_at DateTime?
+
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+
+  user User @relation(fields: [user_id], references: [id])
+
+  @@map("user_settings")
+}
+
+model UserNotification {
+  id          BigInt    @id @default(autoincrement())
+  uid         String    @unique @default(cuid()) @db.VarChar(40)
+  notice_id   BigInt? // for event system message
+  user_id     BigInt?
+  event       String    @db.VarChar(50) // trade, deposit, system message ....
+  title       String    @db.VarChar(500)
+  description String?   @db.VarChar(5000)
+  status      Int       @default(0) @db.SmallInt
+  created_at  DateTime  @default(now())
+  updated_at  DateTime? @updatedAt
+
+  user   User?   @relation(fields: [user_id], references: [id])
+  notice Notice? @relation(fields: [notice_id], references: [id], onDelete: Cascade)
+
+  @@map("user_notifications")
+}
+
+model BlockedCountry {
+  id           BigInt @id @default(autoincrement())
+  country_code String @unique @db.VarChar(10)
+
+  @@map("blocked_countries")
+}
+
+model Currency {
+  id       Int     @id @default(autoincrement())
+  name     String  @unique @db.VarChar(255)
+  code     String  @unique @db.VarChar(20)
+  symbol   String? @db.VarChar(255)
+  type     Int     @default(1) @db.SmallInt
+  decimal  Int     @default(0) @db.SmallInt
+  logo     String? @db.VarChar(255)
+  usd_rate Decimal @default(0) @db.Decimal(29, 8)
+
+  // deposit
+  min_deposit      Decimal @default(0) @db.Decimal(40, 18) //for fiat
+  max_deposit      Decimal @default(0) @db.Decimal(40, 18) //for fiat
+  deposit_fee_type Int     @default(1) @db.SmallInt //for fiat
+  deposit_fee      Decimal @default(0) @db.Decimal(40, 18) //for fiat
+
+  // withdrawal
+  min_withdrawal      Decimal @default(0) @db.Decimal(40, 18)
+  max_withdrawal      Decimal @default(0) @db.Decimal(40, 18)
+  withdrawal_fee_type Int     @default(1) @db.SmallInt
+  withdrawal_fee      Decimal @default(0) @db.Decimal(40, 18)
+
+  sync_rate_status Int @db.SmallInt
+  status           Int @db.SmallInt
+
+  wallet_status         Int @default(1) @db.SmallInt
+
+  deposit_status       Int @default(0) @db.SmallInt
+  withdrawal_status    Int @default(0) @db.SmallInt
+  convert_status       Int @default(0) @db.SmallInt
+  buy_crypto_status    Int @default(0) @db.SmallInt
+  sell_crypto_status   Int @default(0) @db.SmallInt
+  p2p_status           Int @default(0) @db.SmallInt
+  futures_trade_status Int @default(0) @db.SmallInt
+
+  min_convert_amount  Decimal @default(0) @db.Decimal(40, 18)
+  max_convert_amount  Decimal @default(1) @db.Decimal(40, 18)
+  convert_fee_type    Int     @default(1) @db.SmallInt // for crypto: convert, for fiat: sell_crypto
+  convert_fee         Decimal @default(0) @db.Decimal(40, 18) // for crypto: convert, for fiat: sell_crypto
+  buy_crypto_fee_type Int     @default(1) @db.SmallInt // for crypto only
+  buy_crypto_fee      Decimal @default(0) @db.Decimal(40, 18) // for crypto only
+
+  // gift card
+  gift_card_status     Int     @default(0) @db.SmallInt
+  min_gift_card_amount Decimal @default(0) @db.Decimal(40, 18)
+  max_gift_card_amount Decimal @default(1) @db.Decimal(40, 18)
+  gift_card_fee_type   Int     @default(1) @db.SmallInt
+  gift_card_fee        Decimal @default(0) @db.Decimal(40, 18)
+
+  // p2p
+  p2p_min_price_percent Decimal @default(0) @db.Decimal(10, 5) // min price percentage from market_price for fiat
+  p2p_max_price_percent Decimal @default(0) @db.Decimal(10, 5) // max price percentage from market_price for fiat
+  min_p2p_amount        Decimal @default(0) @db.Decimal(40, 18)
+  max_p2p_amount        Decimal @default(0) @db.Decimal(40, 18)
+  min_p2p_order_limit   Decimal @default(0) @db.Decimal(40, 18) // limit for fiat 
+  max_p2p_order_limit   Decimal @default(0) @db.Decimal(40, 18) // limit for fiat 
+  p2p_buyer_fee_type    Int     @default(1) @db.SmallInt // percentage fixed by default
+  p2p_buyer_fee         Decimal @default(0) @db.Decimal(40, 18)
+  p2p_seller_fee_type   Int     @default(1) @db.SmallInt // percentage fixed by default
+  p2p_seller_fee        Decimal @default(0) @db.Decimal(40, 18)
+
+  market_cap Decimal @default(0) @db.Decimal(40, 18) // in trade currency amount
+
+  transfer_status Int @default(1) @db.SmallInt // wallet transfer status
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+
+  coins                        Coin[]
+  wallets                      Wallet[]
+  withdrawal_address           UserWithdrawalAddress[]
+  withdrawals                  Withdrawal[]               @relation("withdrawal_currency")
+  net_fee_withdrawals          Withdrawal[]               @relation("withdrawal_network_fee_currency")
+  deposits                     Deposit[]
+  base_currency_pairs          CurrencyPair[]             @relation("base_currency")
+  trade_currency_pairs         CurrencyPair[]             @relation("trade_currency")
+  admin_deposits               AdminDeposit[]
+  network_withdrawals          NetworkWithdrawal[]
+  wallet_issues                WalletIssue[]
+  coin_pool_data               CoinPoolData[]
+  daily_revenue_data           DailyRevenueData[]
+  total_revenue_data           TotalRevenueData[]
+  bonus_settings               BonusSetting[]
+  bonus_distribution_histories BonusDistributionHistory[]
+  from_convert_history         CurrencyConvertHistory[]   @relation("from_currency")
+  to_convert_history           CurrencyConvertHistory[]   @relation("to_currency")
+  from_currency_quote          CurrencyConvertQuote[]     @relation("from_currency_quote")
+  to_currency_quote            CurrencyConvertQuote[]     @relation("to_currency_quote")
+  payment_settings             CurrencyPaymentSetting[]
+  online_txs                   OnlinePaymentTx[]
+  manual_txs                   ManualPaymentTx[]
+
+  user_gift_cards                   UserGiftCard[]
+  user_gift_card_transfer_history   UserGiftCardTransferHistory[]
+  user_wallet_transfer_histories    UserWalletTransferHistory[]
+  p2p_crypto_currency_advertisement P2PAdvertisement[]            @relation("p2p_crypto_currency")
+  p2p_fiat_currency_advertisement   P2PAdvertisement[]            @relation("p2p_fiat_currency")
+
+  futures_base_currency_pair  FuturesCurrencyPair[]       @relation("futures_base_currency")
+  futures_trade_currency_pair FuturesCurrencyPair[]       @relation("futures_trade_currency")
+  futures_transaction_history FuturesTransactionHistory[]
+
+  @@map("currencies")
+}
+
+model Wallet {
+  id          BigInt @id @default(autoincrement())
+  user_id     BigInt
+  currency_id Int
+
+  spot_available_balance    Decimal @default(0) @db.Decimal(40, 18)
+  spot_in_order_balance     Decimal @default(0) @db.Decimal(40, 18)
+  funding_available_balance Decimal @default(0) @db.Decimal(40, 18)
+  funding_in_order_balance  Decimal @default(0) @db.Decimal(40, 18)
+  futures_available_balance Decimal @default(0) @db.Decimal(40, 18)
+  futures_in_order_balance  Decimal @default(0) @db.Decimal(40, 18)
+
+  status     Int       @default(1) @db.SmallInt
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+
+  user                         User                      @relation(fields: [user_id], references: [id])
+  currency                     Currency                  @relation(fields: [currency_id], references: [id])
+  from_deposits                Deposit[]                 @relation("deposit_from_wallet") @ignore
+  deposits                     Deposit[]                 @relation("deposit_to_wallet")
+  withdrawals                  Withdrawal[]              @relation("withdrawal_from_wallet")
+  to_withdrawals               Withdrawal[]              @relation("withdrawal_to_wallet") @ignore
+  activities                   WalletActivity[]
+  buy_orders                   BuyOrder[]
+  sell_orders                  SellOrder[]
+  balance_mismatch             UserBalanceMismatch[]
+  user_wallet_transfer_histories UserWalletTransferHistory[]
+
+  futures_buy_orders FuturesBuyOrder[]
+  futures_sell_order FuturesSellOrder[]
+
+  @@unique([user_id, currency_id])
+  @@map("wallets")
+}
+
+model IpLocation {
+  id           String  @unique @default(cuid()) @db.VarChar(100)
+  ip_address   String  @unique
+  city         String? @db.VarChar(100)
+  region       String? @db.VarChar(100)
+  country_code String? @db.VarChar(10)
+  other_infos  String?
+
+  @@map("ip_locations")
+}
+
+model WalletActivity {
+  id               BigInt    @id @default(autoincrement())
+  user_id          BigInt
+  wallet_id        BigInt
+  tx_type          Int       @db.SmallInt // credit or debit
+  wallet_type      Int       @db.SmallInt // spot, funding etc...
+  previous_balance Decimal   @db.Decimal(40, 18)
+  current_balance  Decimal   @db.Decimal(40, 18)
+  change_amount    Decimal   @db.Decimal(40, 18)
+  description      String?   @db.VarChar(500)
+  activity_title   String?   @db.VarChar(500)
+  related_model    Int?      @db.SmallInt // i.e: deposit, withdrawal ...etc
+  model_id         String?   @db.VarChar(255) // i.e deposit id, withdrawal id ... etc
+  created_at       DateTime  @default(now())
+  updated_at       DateTime? @updatedAt
+
+  user   User   @relation(fields: [user_id], references: [id])
+  wallet Wallet @relation(fields: [wallet_id], references: [id])
+
+  @@map("wallet_activities")
+}
+
+model CurrencyPair {
+  id   Int    @id @default(autoincrement())
+  uid  String @unique @default(cuid()) @db.VarChar(40)
+  code String @unique @db.VarChar(20)
+
+  base_currency_id    Int // currency to buy/sell
+  trade_currency_id   Int // base currency will be bought/sold with this currency
+  base_currency_code  String @db.VarChar(20)
+  trade_currency_code String @db.VarChar(20)
+  base_decimal        Int    @db.SmallInt // order amount default decimal for visual and calculation
+  trade_decimal       Int    @db.SmallInt // order price and total default decimal for visual and calculation
+
+  maker_fee Decimal @default(0) @db.Decimal(40, 18) // In percent
+  taker_fee Decimal @default(0) @db.Decimal(40, 18) // In percent
+
+  min_price_percent Decimal?  @db.Decimal(10, 5) // min price percentage from market_price while order place
+  max_price_percent Decimal?  @db.Decimal(10, 5) // max price percentage from market_price while order place
+  min_base_amount   Decimal   @default(0) @db.Decimal(40, 18)
+  max_base_amount   Decimal   @default(0) @db.Decimal(40, 18)
+  is_default        Int       @default(0) @db.SmallInt
+  status            Int       @default(1) @db.SmallInt
+  created_at        DateTime  @default(now())
+  updated_at        DateTime? @updatedAt
+
+  base_currency  Currency                  @relation("base_currency", fields: [base_currency_id], references: [id])
+  trade_currency Currency                  @relation("trade_currency", fields: [trade_currency_id], references: [id])
+  buy_orders     BuyOrder[]
+  sell_orders    SellOrder[]
+  trades         Trade[]
+  fav_lists      UserCurrencyPairFavList[]
+  market_data    MarketData?
+  bot_settings   SystemTradingBotSetting[]
+
+  @@unique([trade_currency_id, base_currency_id])
+  @@unique([trade_currency_code, base_currency_code])
+  @@map("currency_pairs")
+}
+
+model CurrencyConvertQuote {
+  uid              String    @unique @default(cuid()) @db.VarChar(40)
+  user_id          BigInt
+  wallet_type      Int       @default(1) @db.SmallInt // SPOT = 1, FUNDING = 2,
+  feature          String    @default("convert") @db.VarChar(40) // CONVERSION_FEATURES: convert, fiat_withdrawal, sell_crypto
+  pay_method_type  String?   @db.VarChar(20)
+  from_currency_id Int
+  from_amount      Decimal   @db.Decimal(40, 18)
+  to_currency_id   Int
+  to_amount        Decimal   @db.Decimal(40, 18) // user will get this amount
+  total_to_amount  Decimal   @default(0) @db.Decimal(40, 18) // to_amount + fee
+  price            Decimal   @db.Decimal(40, 18)
+  fee              Decimal   @default(0) @db.Decimal(40, 18) // calculated fee in to currency
+  expires_at       DateTime
+  refresh_timer    Int       @db.SmallInt // refresh timer in sec
+  status           Int       @default(1) @db.SmallInt
+  created_at       DateTime  @default(now())
+  updated_at       DateTime? @updatedAt
+
+  from_currency Currency @relation("from_currency_quote", fields: [from_currency_id], references: [id])
+  to_currency   Currency @relation("to_currency_quote", fields: [to_currency_id], references: [id])
+
+  @@map("currency_convert_quotes")
+}
+
+model CurrencyConvertHistory {
+  id      BigInt @id @default(autoincrement())
+  uid     String @unique @default(cuid()) @db.VarChar(40)
+  user_id BigInt
+  feature String @default("convert") @db.VarChar(40) // CONVERSION_FEATURES: convert, fiat_withdrawal, sell_crypto
+
+  convert_type Int @default(1) @db.SmallInt // MARKET = 1, LIMIT = 2,
+  wallet_type  Int @default(1) @db.SmallInt // SPOT = 1, FUNDING = 2,
+
+  from_currency_id Int
+  from_amount      Decimal @db.Decimal(40, 18) // in to curr amount
+
+  to_currency_id  Int
+  to_amount       Decimal @db.Decimal(40, 18) // user will get this amount
+  total_to_amount Decimal @default(0) @db.Decimal(40, 18) // to_amount + fee
+
+  price            Decimal  @db.Decimal(40, 18) // 1 from curr -> to currency
+  fee              Decimal  @default(0) @db.Decimal(40, 18) // calculated fee in to currency
+  market_price_was Decimal? @db.Decimal(40, 18)
+
+  reason_note          String?  @db.VarChar(500)
+  approved_by_staff_id Int? // action taken by staff id
+  expires_at           DateTime
+
+  status          Int     @default(1) @db.SmallInt
+  pay_method_type String? @db.VarChar(20) // PAY_TO_SYSTEM_METHOD_TYPES
+  payment_status  Int?    @db.SmallInt // PAYMENT_STATUS
+
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+
+  from_currency Currency @relation("from_currency", fields: [from_currency_id], references: [id])
+  to_currency   Currency @relation("to_currency", fields: [to_currency_id], references: [id])
+  user          User     @relation(fields: [user_id], references: [id])
+
+  @@map("currency_convert_histories")
+}
+
+model GiftCardCategory {
+  id         Int       @id @default(autoincrement())
+  uid        String    @unique @default(cuid()) @db.VarChar(40)
+  name       String    @db.VarChar(255)
+  status     Int       @default(1) @db.SmallInt
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+
+  gift_card_templates GiftCardTemplate[]
+
+  @@map("gift_card.categories")
+}
+
+model GiftCardTemplate {
+  id          Int       @id @default(autoincrement())
+  uid         String    @unique @default(cuid()) @db.VarChar(40)
+  category_id Int       @db.Integer
+  title       String?   @db.VarChar(255)
+  description String?   @db.VarChar(500)
+  image       String?   @db.VarChar(255)
+  status      Int       @default(1) @db.SmallInt
+  created_at  DateTime  @default(now())
+  updated_at  DateTime? @updatedAt
+
+  category        GiftCardCategory @relation(fields: [category_id], references: [id])
+  user_gift_cards UserGiftCard[]
+
+  @@map("gift_card.templates")
+}
+
+model UserGiftCard {
+  id          BigInt  @id @default(autoincrement())
+  uid         String  @unique @default(cuid()) @db.VarChar(40)
+  creator_id  BigInt  @db.BigInt
+  owner_id    BigInt  @db.BigInt
+  template_id Int     @db.Integer
+  wallet_type Int     @db.SmallInt // SPOT = 1, FUNDING = 2,
+  currency_id Int     @db.Integer
+  amount      Decimal @db.Decimal(40, 18)
+  quantity    Int     @default(1) @db.Integer
+
+  status     Int       @default(1) @db.SmallInt
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+
+  creator  User             @relation("creator", fields: [creator_id], references: [id])
+  owner    User             @relation("owner", fields: [owner_id], references: [id])
+  template GiftCardTemplate @relation(fields: [template_id], references: [id])
+  currency Currency         @relation(fields: [currency_id], references: [id])
+
+  transfer_histories UserGiftCardTransferHistory[]
+
+  @@map("gift_card.user_gift_cards")
+}
+
+model UserGiftCardTransferHistory {
+  id                BigInt @id @default(autoincrement())
+  uid               String @unique @default(cuid()) @db.VarChar(40)
+  from_user_id      BigInt @db.BigInt
+  to_user_id        BigInt @db.BigInt
+  user_gift_card_id BigInt @db.BigInt
+
+  currency_id Int @db.Integer
+
+  amount       Decimal @db.Decimal(40, 18)
+  fee          Decimal @default(0) @db.Decimal(40, 18)
+  total_amount Decimal @default(0) @db.Decimal(40, 18)
+
+  note String? @db.VarChar(500)
+
+  status Int @default(1) @db.SmallInt
+
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+
+  from_user      User         @relation("gift_card_from_user", fields: [from_user_id], references: [id])
+  to_user        User         @relation("gift_card_to_user", fields: [to_user_id], references: [id])
+  currency       Currency     @relation(fields: [currency_id], references: [id])
+  user_gift_card UserGiftCard @relation(fields: [user_gift_card_id], references: [id])
+
+  @@map("gift_card.transfer_histories")
+}

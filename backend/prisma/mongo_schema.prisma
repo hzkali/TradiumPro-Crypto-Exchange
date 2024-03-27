@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/mongo-client"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_URL")
+}
+
+model Trade {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  currency_pair_id Int
+  amount           Float
+  price            Float
+  total            Float
+  timestamp        BigInt
+
+  @@index(fields: [currency_pair_id, timestamp])
+  @@map("trades")
+}
+
+model MinuteCandle {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  currency_pair_id Int
+  time             BigInt
+  open             Float
+  high             Float
+  low              Float
+  close            Float
+  volumefrom       Float
+  volumeto         Float
+
+  @@unique([currency_pair_id, time])
+  @@map("minute_candles")
+}
+
+model HourlyCandle {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  currency_pair_id Int
+  time             BigInt
+  open             Float
+  high             Float
+  low              Float
+  close            Float
+  volumefrom       Float
+  volumeto         Float
+
+  @@unique([currency_pair_id, time])
+  @@map("hourly_candles")
+}
+
+model DailyCandle {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  currency_pair_id Int
+  time             BigInt
+  open             Float
+  high             Float
+  low              Float
+  close            Float
+  volumefrom       Float
+  volumeto         Float
+
+  @@unique([currency_pair_id, time])
+  @@map("daily_candles")
+}

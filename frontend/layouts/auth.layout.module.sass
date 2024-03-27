@@ -1,0 +1,117 @@
+@import ../styles/helpers
+
+.pageWrapper
+    min-height: 100vh
+    display: flex
+    flex-direction: column
+
+.main
+    padding-top: $header-height
+    flex: 1
+
+.login
+    display: flex
+    +t
+        display: block
+
+.col
+    position: relative
+    &:first-child
+        flex-shrink: 0
+        width: 512px
+        min-height: 100vh
+        background-color: $n2
+        background-repeat: no-repeat
+        background-position: 100% 50%
+        background-size: cover
+        +x
+            width: 420px
+        +d
+            width: 350px
+        +t
+            width: auto
+            min-height: auto
+            background: none !important
+            z-index: 1
+        +dark
+            background-color: $n2
+    &:nth-child(2)
+        position: relative
+        display: flex
+        flex-grow: 1
+        padding: 148px 64px 132px
+        +w
+            padding: 124px 48px 76px
+        +t
+            min-height: 100vh
+            padding-bottom: 100px
+        +m
+            flex-direction: column
+            padding: 100px 32px 32px
+
+.logo
+    position: absolute
+    top: 64px
+    left: 80px
+    width: 156px
+    +w
+        top: 48px
+        left: 64px
+    +m
+        top: 40px
+        left: 50%
+        transform: translateX(-50%)
+    img
+        &:first-child
+            width: 40px
+            position: absolute
+            left: 60px
+            display: none
+            +t
+                display: inline-block
+        &:nth-child(2)
+            width: 100%
+            +t
+                display: none
+                +dark
+                    display: none
+                     
+
+.head
+    position: absolute
+    top: 80px
+    right: 80px
+    left: 80px
+    text-align: right
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    gap: 12px
+    flex-flow: row wrap
+    +button-2
+    +w
+        top: 56px
+        right: 64px
+        left: 64px
+    +t
+        right: 48px
+    +m
+        position: static
+        margin-bottom: 32px
+        text-align: center
+        justify-content: center
+        span
+            width: 100%
+
+.link
+    margin-left: 5px
+    color: color(p1)
+    transition: color .2s
+    &:hover
+        color: color(p1a)
+
+.wrap
+    width: 380px
+    margin: auto
+    +a
+        width: 100%

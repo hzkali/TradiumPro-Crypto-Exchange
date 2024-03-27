@@ -1,0 +1,33 @@
+.highcharts-credits // its an svg
+  visibility: hidden !important
+
+.highcharts-root
+  font-size: 14px !important
+  font-family: 'Poppins', sans-serif !important
+
+.highcharts-background
+  fill: $white
+  +dark-common
+    fill: $black1
+
+.highcharts-axis-line,
+.highcharts-tick 
+  stroke: $n6
+  +dark-common
+    stroke: $n3
+
+.highcharts-axis-labels
+  text
+    fill: $n2 !important
+    +dark-common
+      fill: $n6 !important
+
+.highcharts-tooltip
+  .highcharts-tooltip-box
+    fill: $white
+    +dark-common
+      fill: $black1
+  text
+    fill: $n2 !important
+    +dark-common
+      fill: $n6 !important

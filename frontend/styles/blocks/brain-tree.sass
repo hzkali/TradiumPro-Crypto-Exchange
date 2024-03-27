@@ -1,0 +1,130 @@
+.braintree-container
+  +poppins
+  & > *
+    +poppins
+
+.braintree-dropin
+  +poppins
+
+.braintree-upper-container:before
+  background-color: unset
+  border: 2px solid $n4
+  border-radius: 12px
+
+// styles for card only
+.braintree-sheet
+  background-color: $n8 !important
+  border: 2px solid $n6
+  border-radius: 12px !important
+  +dark-common
+    background-color: $black2 !important
+    border: 2px solid $n2
+  .braintree-sheet__header 
+    border-bottom: 2px solid $n6
+    +dark-common
+      border-bottom: 2px solid $n2
+  .braintree-sheet__header .braintree-sheet__text
+    color: $n2
+    +dark-common
+      color: $n8
+  .braintree-form__field-group
+    &:not(:last-child)
+      margin-bottom: 20px
+    label
+      display: block
+    .braintree-form__label
+      margin-bottom: 12px !important
+      font-size: 12px !important
+      font-weight: 700 !important
+      color: $n5 !important
+      text-transform: uppercase
+    .braintree-form__hosted-field
+      width: 100%
+      height: 48px !important
+      padding: 0 14px !important
+      border-radius: 12px !important
+      border: 2px solid $n6 !important
+      background: $n8 !important
+      +poppins
+      +caption-bold-1
+      color: $n2 !important
+      transition: border-color .2s
+      +dark-common
+          border-color: $n3 !important
+          background: $n5 !important
+          color: $n8 !important
+  .braintree-form__flexible-fields
+    gap: 0 8px
+
+.braintree-sheet--has-error .braintree-sheet
+  border-color: $p3 !important
+
+.zoid-outlet
+  width: 100% !important
+
+.gpay-button,
+.applePay-button
+  display: block !important
+  width: 100% !important
+  height: 48px !important
+  border-radius: 12px !important
+  background-color:  $n2 !important
+  +dark-common
+    background-color: $n3 !important
+
+.braintree-placeholder, 
+.braintree-heading
+  color: $n2 !important
+  margin-bottom: 12px !important
+  +dark-common
+    color: $n8 !important
+
+.braintree-option
+  background-color: $n8 
+  border-color: $n6
+  border-width: 0 2px 2px 2px
+  &:first-child
+    border-radius:  12px 12px 0 0
+    border-top-width: 2px
+  &:last-child
+    border-radius: 0 0 12px 12px
+  +dark-common
+    background-color: $n2
+    border-color: $n3
+  .braintree-option__label
+    color: $n2
+    div
+      font-size: 12px
+      margin-top: 6px
+    +dark-common
+      color: $n8
+
+.braintree-large-button
+  background: unset !important
+  border: 2px solid $n6
+  border-radius: 24px
+  height: 48px
+  padding: 0
+  display: grid
+  place-items: center
+  span
+    border-bottom: 0 !important
+    padding-bottom: 0
+  +dark-common
+    color: $n8
+    border-color: $n2
+
+.braintree-method
+  background-color: $n8 !important
+  +dark-common
+    background-color: $n2 !important
+  &.braintree-method--active
+    border-radius: 12px !important
+    border-color: $p4 !important
+    .braintree-method__check
+      background-color: $p4 !important
+  .braintree-method__label
+    color: $n2
+    +dark-common
+      color: $n8
+   

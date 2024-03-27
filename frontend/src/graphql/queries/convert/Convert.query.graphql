@@ -1,0 +1,242 @@
+query GetMarketCurrencyDataByCode (
+  $from_currency_code: String!
+  $to_currency_code: String!
+) {
+  data: q_f_convert_getMarketCurrencyDataByCode (
+    from_currency_code: $from_currency_code
+    to_currency_code: $to_currency_code
+  ) {
+    pair
+    from_currency {
+      code
+      max_convert_amount
+      min_convert_amount
+      spot_available_balance
+      funding_available_balance
+    }
+    to_currency {
+      code
+      max_convert_amount
+      min_convert_amount
+      spot_available_balance
+      funding_available_balance
+    }
+  }
+}
+
+query GetValidCurrencyDataForLimitConvert (
+  $from_currency_code: String!
+  $to_currency_code: String!
+) {
+  data: q_f_convert_getValidCurrencyDataForLimitConvert (
+    from_currency_code: $from_currency_code
+    to_currency_code: $to_currency_code
+  ) {
+    currency_pair {
+      base
+      base_decimal
+      trade
+      trade_decimal
+      market_price
+      change
+    }
+    pair
+    from_currency {
+      code
+      max_convert_amount
+      min_convert_amount
+      convert_fee_type
+      convert_fee
+      spot_available_balance
+      funding_available_balance
+    }
+    to_currency {
+      code
+      convert_fee_type
+      convert_fee
+      max_convert_amount
+      min_convert_amount
+      spot_available_balance
+      funding_available_balance
+    }
+  }
+}
+
+query GetCurrencyListForMarketConvert (
+  $currency_type: Int
+  $limit: Int
+  $orderBy: OrderBy
+  $query: String
+  $status: Int
+  $feature: String
+) {
+ data: q_f_convert_getCurrencyListForMarketConvert (
+  currency_type: $currency_type
+  feature: $feature
+  limit: $limit
+  orderBy: $orderBy
+  query: $query
+  status: $status
+ ) {
+    code
+    logo
+    name
+    convert_fee_type
+    convert_fee
+    decimal
+    max_convert_amount
+    min_convert_amount
+    wallets {
+      spot_available_balance
+      funding_available_balance
+    }
+  }
+}
+
+query GetCurrencyListForMarketConvertForHistoryFilter (
+  $limit: Int
+  $orderBy: OrderBy
+  $query: String
+  $status: Int
+) {
+ data: q_f_convert_getCurrencyListForMarketConvert (
+  limit: $limit
+  orderBy: $orderBy
+  query: $query
+  status: $status
+ ) {
+    code
+    # logo
+    # name
+  }
+}
+
+query GetFromCurrencyListForLimitConvert (
+  $limit: Int
+  $orderBy: OrderBy
+  $query: String
+  $status: Int
+) {
+  data: q_f_convert_getFromCurrencyListForLimitConvert (
+  limit: $limit
+  orderBy: $orderBy
+  query: $query
+  status: $status
+ ) {
+    code
+    logo
+    name
+    decimal
+    max_convert_amount
+    min_convert_amount
+    convert_fee_type
+    convert_fee
+    wallets {
+      spot_available_balance
+      funding_available_balance
+    }
+  }
+}
+
+query GetToCurrencyListForLimitConvert (
+  $from_currency_code: String!
+  $limit: Int
+  $orderBy: OrderBy
+  $query: String
+  $status: Int
+) {
+  data: q_f_convert_getToCurrencyListForLimitConvert (
+  from_currency_code: $from_currency_code
+  limit: $limit
+  orderBy: $orderBy
+  query: $query
+  status: $status
+ ) {
+    code
+    logo
+    name
+    decimal
+    max_convert_amount
+    min_convert_amount
+    convert_fee_type
+    convert_fee
+    wallets {
+      spot_available_balance
+      funding_available_balance
+    }
+  }
+}
+
+query GetCurrencyConvertQuote ($data: MarketCurrencyQuoteDto!) {
+  data: q_f_convert_getCurrencyConvertQuote (data: $data) {
+    code
+    message
+    success
+    quote {
+      fee
+      from_amount
+      from_currency
+      inverse_price
+      price
+      quote_id
+      refresh_timer
+      status
+      to_amount
+      to_currency
+      total_to_amount
+      user_will_get
+      user_will_spend
+    }
+  }
+}
+
+query GetChartDataForLimitConvert (
+  $currency_pair: String!
+  $days: Int
+) {
+  data: q_f_convert_getChartDataForLimitConvert (
+    currency_pair: $currency_pair,
+    days: $days
+  ) {
+    timestamp
+    price
+  }
+}
+query GetConvertHistoryListPaginated (
+  $currency_code: String
+  $limit: Int
+  $offset: Int
+  $status: Int
+  $time: TimeFilter
+  $wallet_type: Int
+) {
+  data: q_f_convert_getConvertHistoryListPaginated (
+    currency_code: $currency_code
+    limit: $limit
+    offset: $offset
+    status: $status
+    time: $time
+    wallet_type: $wallet_type
+  ) {
+    totalCount
+    nodes {
+      convert_type
+      created_at
+      expires_at
+      fee
+      from_amount
+      from_currency {
+        code
+      }
+      price
+      status
+      total_to_amount
+      to_amount
+      to_currency {
+        code
+      }
+      uid
+      wallet_type
+    }
+  }
+}

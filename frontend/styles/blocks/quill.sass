@@ -1,0 +1,86 @@
+// styles for react-quill
+// theme: snow
+.quill
+  background: $n8
+  +poppins
+  +caption-bold-1
+  color: $n2
+  transition: border-color .2s
+  +dark-common
+    background: none
+    color: $n8
+
+.ql-toolbar.ql-snow
+  border: 2px solid $n6 !important
+  border-bottom: 1px solid $n6 !important
+  border-radius: 12px 12px 0 0
+  transition: border-color .2s
+  font-family: 'Poppins', sans-serif !important
+  display: flex
+  flex-flow: row wrap
+  gap: 16px
+  .ql-formats
+    margin-right: 0 !important
+  +dark-common
+    border-color: $n3 !important
+
+.ql-container.ql-snow
+  border: 2px solid $n6 !important
+  border-top: 0px !important
+  border-radius: 0 0 12px 12px
+  transition: border-color .2s
+  font-family: 'Poppins', sans-serif !important
+  +caption-bold-1
+  +dark-common
+    border-color: $n3 !important
+
+.ql-editor
+  min-height: 100px
+
+.ql-editor.ql-blank::before
+  color: $n4 !important
+  font-family: 'Poppins', sans-serif !important
+  font-style: normal !important
+
+.ql-snow .ql-picker
+  color: $n2
+  +dark-common
+    color: $n8
+
+.ql-snow .ql-picker-options
+  background: $n8
+  border-color: $n6 !important
+  border-radius: 12px
+  +dark-common
+    background: $n2
+    border-color: $n3 !important
+
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label
+  border: 0px !important
+
+.ql-snow .ql-stroke
+  stroke: $n3 !important
+  +dark-common
+    stroke: $n6 !important
+
+.ql-snow .ql-fill, 
+.ql-snow .ql-stroke.ql-fill
+  fill: $n3 !important
+  +dark-common
+    fill: $n6 !important
+
+.ql-snow.ql-toolbar button:hover, 
+.ql-snow .ql-toolbar button:hover, 
+.ql-snow.ql-toolbar button:focus, 
+.ql-snow .ql-toolbar button:focus, 
+.ql-snow.ql-toolbar button.ql-active, 
+.ql-snow .ql-toolbar button.ql-active, 
+.ql-snow.ql-toolbar .ql-picker-label:hover, 
+.ql-snow .ql-toolbar .ql-picker-label:hover, 
+.ql-snow.ql-toolbar .ql-picker-label.ql-active, 
+.ql-snow .ql-toolbar .ql-picker-label.ql-active, 
+.ql-snow.ql-toolbar .ql-picker-item:hover, 
+.ql-snow .ql-toolbar .ql-picker-item:hover, 
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected, 
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected
+  color: color(p1) !important

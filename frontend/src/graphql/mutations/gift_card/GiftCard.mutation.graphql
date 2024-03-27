@@ -1,0 +1,39 @@
+mutation CreateOrSendUserGiftCard (
+  $code_verify_input: CodeVerifyInputs
+  $data: CreateOrSendUserGiftCardInput!
+) {
+  data: m_f_giftCard_createOrSendUserGiftCard (
+    code_verify_input: $code_verify_input
+    data: $data
+  ) {
+    code
+    message
+    success
+  }
+}
+
+mutation RedeemGiftCard ($uid: String!) {
+  data: m_f_giftCard_redeemGiftCard (uid: $uid) {
+    code
+    message
+    success
+  }
+}
+
+mutation SendGiftCard (
+  $code_verify_input: CodeVerifyInputs!
+  $note: String
+  $recipient_user_credential: RecipientUserCredentialInput!
+  $uid: String!
+) {
+  data: m_f_giftCard_sendGiftCard (
+    code_verify_input: $code_verify_input
+    note: $note
+    recipient_user_credential: $recipient_user_credential
+    uid: $uid
+  ) {
+    code
+    message
+    success
+  }
+}

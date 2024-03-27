@@ -1,0 +1,245 @@
+@import ../../styles/helpers
+
+.wrapper
+    padding: 45px 0 0px
+    background: $n7
+    +t
+        padding-top: 48px
+    +m
+        padding: 32px 0
+    +dark
+        background: none
+    .container
+        +a
+            padding: 20px !important
+
+.contentWrapper
+    display: grid
+    grid-template-columns: 1.5fr 400px
+    gap: 60px
+    padding: 40px
+    border-radius: 16px
+    background: $n8
+    +d
+        width: auto
+        padding: 32px
+        gap: 40px
+    +t
+        padding: 40px
+        grid-template-columns: 1fr
+    +m
+        padding: 20px 20px 20px 16px
+    &.isLimitVisible
+      display: flex
+      flex-direction: column
+      gap: 72px
+    +dark
+        background: $black2
+
+.maxContent
+  max-width: 600px
+  +d
+    max-width: unset
+
+.limitSettings
+  display: flex
+  align-items: center
+  justify-content: flex-end
+  gap: 12px
+  margin-bottom: 16px
+  .icon
+    font-size: 20px
+    stroke: $n4
+    +transition3
+    &.active
+      stroke: color(p1)
+    &:hover
+      stroke: color(p1)
+
+.expireContent
+  display: flex
+  align-items: flex-start
+  justify-content: space-between
+  gap: 8px
+  .select
+    min-width: 150px
+
+.walletType
+  margin-bottom: 16px
+  display: flex
+  align-items: center
+  justify-content: space-between
+  gap: 8px
+  .radios
+    display: flex
+    gap: 16px
+
+.toggleWrapper
+  text-align: center
+  // button
+  //   &:hover
+  //     svg
+  //       stroke: color(p1)
+  //       fill: transparent
+
+.preview
+  position: relative
+  .loaderWrapper
+    position: absolute
+    inset: 0
+    width: 100%
+    height: 100%
+    display: grid
+    place-items: center
+    background:  rgba($n8, 0.25)
+    +dark
+      background:  rgba($n2, 0.25)
+  .success
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    margin-bottom: 16px
+    .icon
+      font-size: 48px
+      // color: color(s3)
+      color: color(p4)
+    small
+      color: $n4
+    strong
+      font-size: 18px
+    .subtitle
+      span
+        font-weight: 600
+  .actions
+    margin-top: 20px
+    display: flex
+    gap: 12px
+    .actionsItem
+      flex: 1
+
+.coin
+  display: flex
+  gap: 16px
+  align-items: center
+  padding: 12px 
+  border-radius: 12px
+  cursor: pointer
+  strong
+    display: block
+    line-height: 1
+  &:hover 
+    background: $n7
+    +dark
+      background: $n3
+
+.imageWrapper
+  display: inline-block
+  border-radius: 50%
+  width: 30px !important
+  height: 30px !important
+  span
+    position: static !important
+    display: inline !important
+  img
+    width: 30px !important
+    min-width: 30px  !important
+    position: static !important
+
+.withdrawalCoinInfo
+  flex: 1
+  display: flex
+  justify-content: space-between
+  align-items: center
+  +a
+    flex-direction: column
+    align-items: stretch
+  .amount
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    strong
+      flex: 1
+      width: 150px
+      text-align: right
+
+.limitSection
+  display: flex
+  gap: 46px
+  +d
+    gap: 24px
+  +t
+    flex-direction: column
+  .limitForm
+    max-width: 600px
+    width: 100%
+    order: 2
+    +d
+      max-width: unset
+    +t
+      order: 1
+    &.chartIsOpen
+      width: 400px
+      +d
+        width: 300px
+      +t
+        width: 100%
+    .inversePrice
+      display: flex
+      align-items: center
+      justify-content: space-between
+      gap: 8px
+      font-size: 11px
+      font-weight: 600
+      color: $n4
+  .chartWrapper
+    flex: 1
+    order: 1
+    +t
+      order: 2
+    .chartTimes
+      display: flex
+      gap: 8px
+    .title
+      font-size: 22px
+      margin-bottom: 12px
+      display: flex
+      align-items: center
+      gap: 6px
+      flex-flow: row wrap
+      small
+        color: $n4
+        font-size: 14px
+        font-weight: 600
+    .rateInfo
+      font-weight: 600
+      font-size: 18px
+      display: flex
+      align-items: flex-end
+      gap: 6px
+      flex-flow: row wrap
+      .default
+        font-size: 22px
+        line-height: 1.4
+      .time
+        color: $n4
+      .upDown
+        &.success
+          color: color(p4)
+        &.err
+          color: color(p3)
+    .rateAndTime
+      margin-bottom: 16px
+      display: flex
+      align-items: center
+      justify-content: space-between
+      flex-flow: row wrap
+      gap: 12px 24px 
+
+.rightSide
+  // border: 1px solid teal
+  &.inLimit
+    width: 400px
+    margin: 0 auto
+    +t
+      width: 100%

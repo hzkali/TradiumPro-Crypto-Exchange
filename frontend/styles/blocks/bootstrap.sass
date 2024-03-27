@@ -1,0 +1,38 @@
+.table
+  color: $n2 !important
+  +dark-common
+    color: $n5 !important
+
+.table-hover > tbody > tr:hover > *
+  background: $n8 !important
+  +dark-common
+    background: $n2 !important
+    color: $n6 !important
+
+
+.dropdown-menu
+  color: $n2 !important
+  background: $n7 !important
+  border-radius: 12px !important
+  bottom: 0 !important
+  left: 4.5rem !important
+  transform: translateY(50%)
+  +dark-common
+    color: $n5 !important
+    background: $n3 !important
+  .dropdown-item
+    padding: 0 !important
+    font-size: 14px !important
+    a
+      display: inline-block
+      width: 100% !important
+      padding: 0.25rem 1rem
+      color: color(p1) !important
+
+#pageDropDown
+  border-radius: 20px !important
+  font-size: 12px !important
+  padding: 6px 14px !important
+  font-weight: bold
+  &:focus
+    box-shadow: none !important

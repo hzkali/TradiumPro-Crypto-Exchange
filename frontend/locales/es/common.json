@@ -1,0 +1,21 @@
+{
+  "First Name is required": "Se requiere el primer nombre",
+  "Last Name is required": "Se requiere apellido",
+  "Email is required": "correo electronico es requerido",
+  "Phone is required": "Se requiere teléfono",
+  "Password is required": "se requiere contraseña",
+  "Confirm Password is required": "Se requiere confirmar contraseña",
+  "Password must be at least 8 characters and contain at least one uppercase, one lowercase, one number and one special character": "La contraseña debe tener al menos 8 caracteres y contener al menos una mayúscula, una minúscula, un número y un carácter especial",
+  "New: Trade Ethereum  for free": "Nueva: Comercio Ethereum gratis",
+  "Buy & sell": "Compra venta",
+  "0": "0",
+  "1": "1",
+  "2": "2",
+  "3": "3",
+  "4": "4",
+  "5": "5",
+  "6": "6",
+  "7": "7",
+  "8": "8",
+  "9": "9"
+}

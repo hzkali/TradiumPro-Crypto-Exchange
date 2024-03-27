@@ -1,0 +1,29 @@
+.react-tabs__tab-list
+    display: flex
+    align-items: center
+    gap: 12px
+    border-bottom: 1px solid transparent !important
+
+.react-tabs__tab
+  display: flex !important
+  padding: 6px 12px !important
+  border: 0 !important
+  border-radius: 14px !important
+  background: none !important
+  cursor: pointer !important
+  color: $n4 !important
+  +button-2
+  transition: all .2s
+
+.react-tabs__tab--selected
+  background: $n3 !important
+  color: $n8 !important
+  cursor: initial !important
+  +dark
+    background: $n3 !important
+    color: $n8 !important
+
+.react-tabs__tab--disabled
+  cursor: not-allowed !important
+  color: $n5 !important
+  

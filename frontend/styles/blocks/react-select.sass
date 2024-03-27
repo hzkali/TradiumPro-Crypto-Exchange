@@ -1,0 +1,174 @@
+.custom-select__control 
+  cursor: pointer !important
+  height: 48px !important
+  padding: 0 16px 0 16px !important
+  border: 0px !important
+  border-radius: 12px !important
+  box-shadow: inset 0 0 0 2px $n6  !important
+  background: transparent !important
+  font-size: 14px !important
+  font-weight: 500 !important
+  line-height: 48px !important
+  cursor: pointer !important
+  -webkit-tap-highlight-color: rgba(0,0,0,0) !important
+  user-select: none !important
+  transition: box-shadow .2s !important
+  +text-overflow
+  +dark-common
+    box-shadow: inset 0 0 0 2px $n3 !important
+    background: transparent !important
+  &:hover
+    box-shadow: inset 0 0 0 2px $n4 !important
+  &::focus-within
+    background: red !important
+
+.custom-select-smaller__control
+  @extend .custom-select__control
+  height: 30px !important
+  min-height: 30px !important
+  line-height: 30px !important
+
+// .profile__control:focus-within 
+//   background: var(--background-color
+
+.custom-select__indicator-separator 
+  display: none
+
+.custom-select-smaller__indicator-separator 
+  @extend .custom-select__indicator-separator 
+
+.custom-select__control--is-focused
+  box-shadow: inset 0 0 0 2px $n4 !important
+
+.custom-select-smaller__control--is-focused
+  @extend .custom-select__control--is-focused
+
+.custom-select__input-container
+  margin: 0 !important
+  padding-bottom: 0 !important
+  padding-top: 0 !important
+
+.custom-select-smaller__input-container
+  @extend .custom-select__input-container
+
+.custom-select__value-container
+  padding: 0 !important
+  height: 100%
+
+.custom-select-smaller__value-container
+  @extend .custom-select__value-container
+
+.custom-select__single-value
+    color: $n4 !important
+    text-transform: capitalize !important
+    +hairline-2
+    display: flex !important
+    gap: 8px !important
+    span
+      position: static !important
+    img
+      width: 24px !important
+      min-width: 24px !important
+      height: 24px !important
+      min-height: 24px !important
+      position: relative !important
+      top: 12px !important
+    div[role='img']
+      position: relative
+      top: 8px
+      width: 30px
+      max-width: 30px
+      min-width: 30px
+      height: 30px
+      padding: 0 !important
+
+.custom-select-smaller__single-value
+  @extend .custom-select__single-value
+
+.custom-select__menu
+  background: $n8 !important
+  border-radius: 12px !important
+  overflow:  hidden !important
+  box-shadow: 10px 30px 32px -24px rgba(15, 15, 15, 0.12) !important, inset 0 0 0 2px $n3 !important
+  z-index: 10 !important
+  +dark-common
+    background: $n3 !important
+
+.custom-select-smaller__menu
+  @extend .custom-select__menu
+
+.custom-select__menu-list
+  padding: 0 !important
+
+.custom-select-smaller__menu-list
+  @extend .custom-select__menu-list
+
+.custom-select__option
+  text-transform: capitalize !important
+  +hairline-2
+  color: $n4 !important
+  cursor: pointer !important
+  span
+    position: static !important
+  img
+    width: 24px !important
+    min-width: 24px !important
+    height: 24px !important
+    min-height: 24px !important
+    position: static !important
+  div[role='img']
+    padding: 0 !important
+
+.custom-select-smaller__option
+  @extend .custom-select__option
+
+.custom-select__option--is-selected
+  background: color(p1) !important
+  color: $n8 !important
+
+.custom-select-smaller__option--is-selected
+  @extend .custom-select__option--is-selected
+
+.custom-select__dropdown-indicator
+  padding: 0 !important
+
+.custom-select-smaller__dropdown-indicator
+  @extend .custom-select__dropdown-indicator
+
+.custom-select__control--is-disabled
+  cursor: not-allowed !important
+  pointer-events: initial !important
+  // opacity: 0.95 !important
+
+.custom-select-smaller__control--is-disabled
+  @extend .custom-select__control--is-disabled
+
+.custom-select__multi-value
+  background-color: $n6 !important
+  margin: 0 !important
+  margin-right: 3px !important
+  align-items: center !important
+  height: 20px !important
+  border-radius: 8px !important
+  +dark-common
+    background-color: $n3 !important
+
+.custom-select-smaller__multi-value
+  @extend .custom-select__multi-value
+
+.custom-select__multi-value__remove
+  &:hover
+    background-color: unset !important
+    color: color(p3) !important
+
+.custom-select-smaller__multi-value__remove
+  @extend .custom-select__multi-value__remove
+
+.custom-select__multi-value__label
+  padding-left: 6px !important
+  color: $n2 !important
+  +dark-common
+    color: $n6 !important
+
+.custom-select-smaller__multi-value__label
+  @extend .custom-select__multi-value__label

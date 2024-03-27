@@ -1,0 +1,23 @@
+/*
+** Do not delete this ** 
+
+import { Field, InputType, registerEnumType } from '@nestjs/graphql';
+import { Order } from '../../../libs/graphql/order/order';
+
+export enum OrderByFields {
+  id = 'id',
+  createdAt = 'createdAt',
+  updatedAt = 'updatedAt',
+}
+
+registerEnumType(OrderByFields, {
+  name: 'OrderByFields',
+  description: 'Common Properties by which connections can be ordered.',
+});
+
+@InputType()
+export class OrderBy extends Order {
+  @Field()
+  field: OrderByFields;
+} 
+*/

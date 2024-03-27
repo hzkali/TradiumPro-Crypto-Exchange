@@ -1,0 +1,27 @@
+::-webkit-scrollbar-track
+  // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1)
+  border-radius: 10px
+  // background-color: $n7
+  // +dark-common
+  //   background-color: $n3
+
+::-webkit-scrollbar
+  width: 6px
+  height: 4px
+  // background-color: $n7
+  // +dark-common
+  //   background-color: $n3
+
+::-webkit-scrollbar-thumb
+  border-radius: 20px
+  // -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.13)
+  background-color: rgba($n5, 0.5)
+  +dark-common
+    background-color: rgba($n3, 1)
+
+// for firefox
+* 
+  scrollbar-width: thin
+  scrollbar-color: rgba($n5, 0.5) transparent
+  +dark-common
+    scrollbar-color: rgba($n3, 1) transparent

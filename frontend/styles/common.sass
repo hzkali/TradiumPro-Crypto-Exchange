@@ -1,0 +1,434 @@
+@import ../styles/helpers
+html
+    overflow-x: hidden
+    scroll-behavior: smooth
+
+body
+    min-width: 375px
+    // overflow-x: hidden
+    --p1: #3772FF
+    --p1a: #0045ea
+    --p1rgb: 55,114,255
+    --p2: #9757D7
+    --p3: #fa0000
+    --p3a: #d10000
+    --p3rgb: 250,0,0
+    --p4: #58BD7D
+    --p4a: #43a968
+    --p4rgb: 88,189,125
+    --s1: #{$s1}
+    --s2: #{$s2}
+    --s3: #{$s3}
+    --s4: #{$s4}
+    --t1: #{$t1}
+    --t2: #{$t2}
+    --cvd1: #{$cvd1}
+    --cvd2: #{$cvd2}
+    &[data-theme="red"]
+        --p1: #FF1E1E
+        --p1a: #A30000
+        --p1rgb: 163,0,0
+        --p2: #E14D2A
+        --p3: #00FFD1
+        --p3a: #00B896
+        --p3rgb: 0,255,209
+        --p4: #367E18
+        --p4a: #255a0f
+        --p4rgb: 54,126,24
+        --s1: #{$s1}
+        --s2: #{$s2}
+        --s3: #{$s3}
+        --s4: #{$s4}
+    background: $n8
+    +poppins
+    font-size: 14px
+    line-height: calc(24/14)
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+    color: $n2
+    +dark-body
+        background: $n1
+        color: $n8
+
+a
+    text-decoration: none
+
+svg,
+img
+    vertical-align: middle
+
+.desktop
+    &-hide
+        +d
+            display: none !important
+    &-show
+        display: none !important
+        +d
+            display: block !important
+    &-text-right
+        +d
+            text-align: right
+
+.tablet
+    &-hide
+        +t
+            display: none !important
+    &-show
+        display: none !important
+        +t
+            display: block !important
+            
+.mobile
+    &-hide
+        +m
+            display: none !important
+    &-show
+        display: none !important
+        +m
+            display: block !important
+
+.nextImage span
+    position: relative !important
+    width: 100% !important
+    height: auto !important
+    
+.imageFull
+    position: relative !important
+    width: 100% !important
+    height: auto !important
+    overflow: hidden
+
+ol
+   list-style-type: decimal
+ol li::marker
+  font-size: 14px !important
+  font-weight: bold
+
+.warningIcon
+    fill: $s3
+    margin-right: 8px
+.iconIcon
+    fill: color(p1)
+    margin-right: 8px
+
+.mobileMenu
+    display: none
+    +t
+        display: block
+        margin-left: 15px
+
+.centered
+    display: flex
+    justify-content: center
+    align-items: center
+
+.w-auto
+    width: auto
+.w-100
+    width: 100px
+.w-150
+    width: 150px
+.w-175
+    width: 175px
+
+.w-m-auto
+    min-width: auto !important
+.w-m-100
+    min-width: 100px
+.w-m-150
+    min-width: 150px
+.w-m-175
+    min-width: 175px
+
+.m-h-0
+    min-height: unset !important
+    
+.common-badge
+    display: inline-block
+    padding: 1px 6px
+    font-size: 10px
+    font-weight: 600
+    border-radius: 25px
+    box-shadow: 0 0 0 2px $n4 inset
+
+.coinWrapper
+    position: relative
+    display: flex
+    align-items: center
+    gap: 8px
+    &.t_0
+        top: 0
+    &.t_4
+        top: 4px
+    &.t_8
+        top: 8px
+    &.t_10
+        top: 10px
+    &.t_12
+        top: 12px
+    strong
+        display: block
+        line-height: 1.2
+    button
+        color: inherit
+        text-decoration: underline
+        &:hover
+            color: color(p1)
+    .imageWrapper
+        border-radius: 50%
+        width: 28px !important
+        height: 28px !important
+        span
+            position: static !important
+        img
+            width: 28px !important
+            min-width: 28px  !important
+            min-height: 28px !important
+            max-height: 28px !important
+            position: static !important
+        [role='img']
+        padding: 0 !important
+        height: 28px !important
+        min-width: 28px !important
+    .imageWrapper-40
+        border-radius: 50%
+        width: 40px !important
+        height: 40px !important
+        span
+            position: static !important
+        img
+            width: 40px !important
+            min-width: 40px  !important
+            min-height: 40px !important
+            max-height: 40px !important
+            position: static !important
+        [role='img']
+        padding: 0 !important
+        height: 40px !important
+        min-width: 40px !important
+
+.label
+    margin-bottom: 6px
+    +hairline-2
+    color: $n4
+
+.status-badge
+    color: $n8
+    padding: 4px 8px
+    border-radius: 16px
+
+.copyButton
+    color: $n3
+    +dark-common
+        color: $n5
+    &:hover
+        color: color(p1)
+    .checked
+        color: color(p4)
+
+.tradePrice
+    &_fresh
+        &_up 
+            color: color(p4) !important
+        &_down 
+            color: color(p3) !important
+    &_traditional
+        &_up 
+            color: color(t1) !important
+        &_down 
+            color: color(t2) !important
+    &_color_vision_deficiency
+        &_up 
+            color: color(cvd1) !important
+        &_down 
+            color: color(cvd2) !important
+
+.tradePriceBg
+    &_fresh
+        &_up 
+            background-color: color(p4) !important
+        &_down 
+            background-color: color(p3) !important
+    &_traditional
+        &_up 
+            background-color: color(t1) !important
+        &_down 
+            background-color: color(t2) !important
+    &_color_vision_deficiency
+        &_up 
+            background-color: color(cvd1) !important
+        &_down 
+            background-color: color(cvd2) !important
+
+.bottom-0
+    bottom: 0px !important
+.bottom-20
+    bottom: 20px !important
+
+.home-title
+    font-size: 36px !important
+    +t
+        font-size: 28px !important
+    +m
+        font-size: 24px !important
+    +a
+        // font-size: 24px !important
+
+.dynamic-html
+  // border: 1px solid
+  & > *
+    // margin-bottom: 16px
+    line-height: 2
+  a
+    color: color(p1)
+    &:hover
+      color: color(p1a)
+  img
+    display: block
+    margin: 16px auto
+    max-width: 100%
+    max-height: 100%
+    object-fit: contain
+    border-radius: 8px
+  blockquote
+    position: relative
+    background: $n6
+    padding: 20px 16px
+    border-radius: 8px
+    font-style: italic
+    +dark
+      background: $n2
+    &::before
+      content: '"'
+      position: absolute
+      top: 12px
+      left: 2px
+      font-size: 36px
+      line-height: 1
+      font-style: inherit
+      color: color(p1)
+  ul, ol
+    padding-left: 16px
+    list-style-type: disc
+  ol
+    list-style-type: auto
+
+mark,
+.highlighted
+    background: transparent
+    color: color(p1)
+
+.loaderWrapper
+    display: grid
+    place-items: center
+    width: 100%
+    min-height: 50px
+
+.wallet-bg
+    background: $n8
+    border-radius: 4px
+    padding: 32px
+    z-index: 99
+    +m
+        padding: 16px
+    +dark-common
+        background: $black1
+
+.apex-tooltip-spot
+    display: flex
+    align-items: center
+    gap: 6px
+    padding: 8px 12px
+    font-weight: 600
+    border: 0
+    background: $n8
+    color: $n2
+    +dark-common
+        background: $n2
+        // color: $n8
+
+.apex-tooltip-convert
+    display: flex
+    flex-direction: column
+    gap: 2px
+    padding: 8px
+    span
+        margin-left: 16px
+        position: relative
+        &::before
+            content: ''
+            width: 8px
+            height: 8px
+            border-radius: 50%
+            background: color(p1)
+            position: absolute
+            top: 35%
+            left: -15%
+
+.apexcharts-svg 
+    background: unset !important
+
+.cursorPointer
+    cursor: pointer
+.cursorHelp
+    cursor: help
+
+.noArrow
+    -moz-appearance: textfield
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button
+        -webkit-appearance: none
+        margin: 0
+
+.errMessage
+    color: color(p3)
+
+.text-overflow
+    +text-overflow
+
+.bg-transparent
+    background: transparent
+
+.color-blue
+    color: color(p1) !important
+.color-green
+    color: color(p4) !important
+.color-red
+    color: color(p3) !important
+.color-yellow
+    color: color(s3) !important
+
+.bg-blue
+    background: color(p1) !important
+.bg-green
+    background: color(p4) !important
+.bg-red
+    background: color(p3) !important
+.bg-yellow
+    background: color(s3) !important
+
+.dropdownHoverLink
+    padding: 4px 12px
+    color: $n2
+    transition: background 0.3s ease
+    +dark-common
+        color: $n8
+    &:hover
+        background: $n7
+        +dark-common
+            background: $n1
+
+.dropdownHoverLinkNoBg
+    padding: 4px 12px
+    color: $n2
+    transition: background 0.3s ease
+    +dark-common
+        color: $n8
+
+.preLine
+    white-space: pre-line
+.nowrap
+    white-space: nowrap
+
+.flex-1
+    flex: 1

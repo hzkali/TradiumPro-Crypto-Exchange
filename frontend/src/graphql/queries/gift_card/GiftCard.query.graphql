@@ -1,0 +1,179 @@
+# categories
+query GetGiftCardCategories (
+  $limit: Int
+  $query: String
+) {
+  data: q_f_giftCard_getGiftCardCategories (
+    limit: $limit
+    query: $query
+  ) {
+    name
+    uid
+  }
+}
+
+query UserGiftCardListPaginate (
+  $category_uid: String
+  $limit: Int
+  $offset: Int
+  $query: String
+) {
+  data: q_f_giftCard_userGiftCardListPaginate (
+    category_uid: $category_uid
+    limit: $limit
+    offset: $offset
+    query: $query
+  ) {
+    totalCount
+    nodes {
+      amount
+      currency {
+        code 
+        decimal
+        symbol 
+        name 
+        logo
+        gift_card_fee
+        gift_card_fee_type
+        type
+        wallets {
+          spot_available_balance
+          funding_available_balance
+        }
+      }
+      quantity
+      template {
+        category {
+          name
+        }
+        description
+        image
+        title
+      }
+      uid
+      wallet_type
+    }
+  }
+}
+
+# templates
+query GetGiftCardTemplateListPaginate (
+  $category_uid: String
+  $limit: Int
+  $offset: Int
+  $query: String
+  $status: Int
+) {
+  data: q_f_giftCard_getGiftCardTemplateListPaginate (
+    category_uid: $category_uid
+    limit: $limit
+    offset: $offset
+    query: $query
+    status: $status
+  ) {
+    totalCount
+    nodes {
+      category {
+        name
+      }
+      image
+      title
+      uid
+    }
+  }
+}
+
+query GetGiftCardTemplateListPaginateForStore (
+  $category_uid: String
+  $limit: Int
+  $offset: Int
+  $query: String
+  $status: Int
+) {
+  data: q_f_giftCard_getGiftCardTemplateListPaginate (
+    category_uid: $category_uid
+    limit: $limit
+    offset: $offset
+    query: $query
+    status: $status
+  ) {
+    totalCount
+    nodes {
+      image
+      title
+      uid
+    }
+  }
+}
+
+query GetGiftCardTemplateDetails ($uid: String!) {
+  data: q_f_giftCard_getGiftCardTemplateDetails (uid: $uid)
+  {
+    category {
+      name
+      uid
+    }
+    description
+    image
+    status
+    title
+    uid
+  }
+}
+
+# history
+query GetGiftCardTransferHistoryListPaginate (
+  $limit: Int
+  $offset: Int
+  $currency_code: String
+  $query: String
+  $status: Int
+  $time: TimeFilter
+) {
+  data: q_f_giftCard_giftCardTransferHistoryListPaginate(
+    limit: $limit
+    offset: $offset
+    currency_code: $currency_code
+    query: $query
+    status: $status
+    time: $time
+  ) {
+    limit
+    nodes {
+      amount
+      fee
+      total_amount
+      note
+      created_at
+      user_gift_card {
+        template {
+          title
+          description
+          image
+          category {
+            name
+          }
+        }
+      }
+      from_user {
+        usercode
+        nickname
+      }
+      status
+      to_user {
+        usercode
+        nickname
+      }
+      uid
+      updated_at
+      currency {
+        name
+        code
+        logo
+        decimal
+      }
+    }
+    offset
+    totalCount
+  }
+}
